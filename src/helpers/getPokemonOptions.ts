@@ -9,20 +9,22 @@ const getPokemons = (): number[] => {
 const getPokemonNames = async( pokemons: number[] ): Promise<Pokemon[]> => {
     if ( pokemons.length !== 4 ) throw 'Pokemons must be 4';
     const [ a,b,c,d ] = pokemons;
+    
+    
 
     // const resp = await pokemonApi.get(`/3`)
     // console.log(resp.data.name, resp.data.id)
     const promiseArr = [
         pokemonApi.get(`/${ a }`),
         pokemonApi.get(`/${ b }`),
-        pokemonApi.get(`/${ c }`),
+        pokemonApi.get(`/${ c }`), 
         pokemonApi.get(`/${ d }`),
     ]
 
    
     // const [ p1, p2, p3, p4 ] = await Promise.all( promiseArr )
     const [ {data: p1}, {data: p2}, {data: p3}, {data: p4} ]  = await Promise.all( promiseArr )
-    console.log(p1)
+    
     return [
         { name: p1.name, id: p1.id },
         { name: p2.name, id: p2.id },
@@ -43,6 +45,7 @@ const getPokemonOptions = async() => {
 
     const mixedPokemons = getPokemons()
                             .sort( () => Math.random() - 0.5 );
+                            console.log(mixedPokemons)
     
     const pokemons = await getPokemonNames( mixedPokemons.splice(0,4) );
 
