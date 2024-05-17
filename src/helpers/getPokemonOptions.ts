@@ -39,7 +39,7 @@ const getPokemonNames = async( pokemons: number[] ): Promise<Pokemon[]> => {
     //     { name: p4.data.name, id: p4.data.id },
     // ]
 
-}
+}   
 
 const getPokemonOptions = async() => {
 

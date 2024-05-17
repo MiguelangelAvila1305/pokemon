@@ -5,11 +5,12 @@ import PokemonPicture from '../components/PokemonPicture.vue';
 import getPokemonOptions from '../helpers/getPokemonOptions';
 import { Pokemon } from '../interfaces/pokemon';
 
-const pokemonArr = ref<Pokemon[]>([]);
-const pokemon = ref<Pokemon>();
+
 const showPokemon = ref(false);
 const showAnswer = ref(false);
 const message = ref('');
+const pokemonArr = ref<Pokemon[]>([]);
+const pokemon = ref<Pokemon>();
 
 const mixPokemonArray = async () => {
     pokemonArr.value = await getPokemonOptions();
@@ -19,16 +20,25 @@ const mixPokemonArray = async () => {
 
 const checkAnswer = (selectedId: number) => {
     if (!pokemon.value) return;
-
+    
     showPokemon.value = true;
     showAnswer.value = true;
-
+    
     if (selectedId === pokemon.value.id) {
+      
         message.value = `Correcto, ${pokemon.value.name}`;
         return; // Evitar que el segundo condicional se active
     }
 
-    message.value = `Oops, era ${pokemon.value.name}`;
+
+    const motivationalMessages = [
+           `Maldito, eso es un ${pokemon.value.name}`,
+           `Desgraciado, eso es un ${pokemon.value.name}`,
+           `Por eso te montan cacho, porque no sabes que eso es un ${pokemon.value.name}`,
+
+        ]
+        const randomInt = Math.floor(Math.random() * motivationalMessages.length);
+    message.value = `${motivationalMessages[randomInt]}`;
 };
 
 const newGame = () => {
