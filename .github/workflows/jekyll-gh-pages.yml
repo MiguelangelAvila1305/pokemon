@@ -1,4 +1,4 @@
-name: pokemon
+name: Deploy Vue to GitHub Pages
 
 on:
   push:
@@ -20,18 +20,21 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
-      - name: Setup Node.js
+
+      - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'  # Puedes especificar la versión de Node.js que necesitas
-      
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install dependencies
         run: pnpm install
-      
+
       - name: Build project
         run: pnpm run build
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
